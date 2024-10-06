@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Asincrona</title>
+  <style>
+    p {
+      font-size: 18px;
+    }
+  </style>
+
+<script>
+  function mostrarAlerta() {
+      const valor = document.getElementById('campoTexto').value;
+      alert("Se ha ingresado: " + valor);
+  }
+</script>
+
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obtener todos los elementos <li> de la lista
+            const elementos = document.querySelectorAll('li');
+
+            // Agregar un evento click a cada elemento <li>
+            elementos.forEach(function(elemento) {
+                elemento.addEventListener('click', function() {
+                    // Mostrar el texto del elemento en la consola
+                    console.log(this.textContent);
+                });
+            });
+        });
+</script>
+
+<script>
+  function deshabilitarCampo() {
+    const campoTexto = document.getElementById('campoTexto2');
+    campoTexto.disabled = true;
+    campoTexto.placeholder = 'Este campo está deshabilitado';
+  }
+
+  function habilitarCampo() {
+    const campoTexto = document.getElementById('campoTexto2');
+    campoTexto.disabled = false;
+    campoTexto.placeholder = '';
+  }
+</script>
+
+<script>
+  // Función para guardar el correo en localStorage y mostrarlo en el DOM
+  function guardarCorreo(event) {
+      event.preventDefault(); // Evitar el envío del formulario
+
+      const correo = document.getElementById('correo').value; // Obtener el valor del campo de correo
+      localStorage.setItem('correo', correo); // Guardar el correo en localStorage
+      mostrarCorreo(); // Mostrar el correo en el DOM
+  }
+
+  // Función para mostrar el correo guardado en el DOM
+  function mostrarCorreo() {
+      const correoGuardado = localStorage.getItem('correo'); // Obtener el correo de localStorage
+      const resultado = document.getElementById('resultado');
+
+      if (correoGuardado) {
+          resultado.innerHTML = `
+              <p>Correo guardado: <strong>${correoGuardado}</strong></p>
+              <button onclick="eliminarCorreo()">Eliminar Correo</button>
+          `;
+      } else {
+          resultado.innerHTML = ''; // Limpiar el DOM si no hay correo
+      }
+  }
+
+  // Función para eliminar el correo de localStorage y del DOM
+  function eliminarCorreo() {
+      localStorage.removeItem('correo'); // Eliminar el correo de localStorage
+      mostrarCorreo(); // Actualizar el DOM
+  }
+
+  // Mostrar el correo guardado cuando se carga la página
+  window.onload = function() {
+      mostrarCorreo();
+  };
+</script>
+
+
+</head>
+
+<body>
+  <p class="">Este es el primer parrafo</p>
+  <p class="">Este es el segundo parrafo</p>
+  <p class="">Este es el tercer parrafo</p>
+  <button onclick="cambiarColor()"> Cambiar color a Azul </button>
+
+  <script>
+    function cambiarColor() {
+      let parrafos = document.getElementsByTagName('p');
+      for (let i = 0; i < parrafos.length; i++) {
+        parrafos.item(i).style.color = 'blue';  
+      }
+    }
+  </script>
+
+<h1> Ejercicio 2 - Formulario con alerta </h1>
+<form onsubmit="event.preventDefault(); mostrarAlerta();">
+    <label for="campoTexto">Ingresa un texto:</label>
+    <input type="text" id="campoTexto1" required>
+    <button type="submit">Mostrar Alerta</button>
+</form>
+
+<h1>Lista de Elementos</h1>
+    <ul>
+        <li>Elemento 1</li>
+        <li>Elemento 2</li>
+        <li>Elemento 3</li>
+        <li>Elemento 4</li>
+        <li>Elemento 5</li>
+    </ul>
+
+<h1>Ejercicio 3 - Habilitar y deshabilitar campos de texto</h1>
+  <input type="text" id="campoTexto2" placeholder="Ingrese un texto" disabled>
+  <button onclick="deshabilitarCampo()"> Deshabilitar </button>
+  <button onclick="habilitarCampo()"> Habilitar </button>
+
+
+  <h1>Guardar Correo Electrónico en LocalStorage</h1>
+  <form onsubmit="guardarCorreo(event)">
+      <input type="email" id="correo" placeholder="Ingresa tu correo electrónico" required>
+      <button type="submit">Guardar Correo</button>
+  </form>
+
+  <div id="resultado"></div>
+
+</body>
+</html>
